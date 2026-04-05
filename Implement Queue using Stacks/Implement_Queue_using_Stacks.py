@@ -1,59 +1,52 @@
 class Stack:
     def __init__(self):
-        self.data = []
-
-    def push(self, item):
-        self.data.append(item)
-
+        self.stack = []
+    def push(self, elem):
+        self.stack.append(elem)
     def pop(self):
-        if self.is_empty():
-            raise IndexError("Stack is empty")
-        return self.data.pop()
-
+        return self.stack.pop()
     def peek(self):
-        if self.is_empty():
-            raise IndexError("Stack is empty")
-        return self.data[-1]
-
-    def is_empty(self):
-        return len(self.data) == 0
-
+        st = self.stack.copy()
+        return st.pop()
     def size(self):
-        return len(self.data)
+        return len(self.stack)
+    def is_empty(self):
+        return self.size() == 0
+    
 
-    def reverse(self):
-        ne = Stack()
-        old = self.data.copy()
-        for elem in old[::-1]:
-            ne.push(elem)
-        self.data = ne.data
-    def __len__(self):
-        return len(self.data)
 
 
 class MyQueue:
 
     def __init__(self):
         self.queue = Stack()
-
     def push(self, x: int) -> None:
         self.queue.push(x)
-
     def pop(self) -> int:
-        que = self.queue
-        que.reverse()
-        s = que.pop()
-        que.reverse()
-        return s
+        stack_copy = Stack()
+        while not self.empty():
+            el = self.queue.pop()
+            if not self.empty():
+                stack_copy.push(el)
+        
+        while not stack_copy.is_empty():
+            self.queue.push(stack_copy.pop())
+        return el
+        
 
     def peek(self) -> int:
-        self.queue.reverse()
-        s = self.queue.peek()
-        self.queue.reverse()
-        return s
+        stack_copy = Stack()
+        while not self.empty():
+            el = self.queue.pop()
+            stack_copy.push(el)
+        
+        while not stack_copy.is_empty():
+            self.queue.push(stack_copy.pop())
+
+        return el
 
     def empty(self) -> bool:
-        return len(self.queue) == 0
+        return self.queue.is_empty()
         
 
 
