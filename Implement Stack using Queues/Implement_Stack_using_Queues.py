@@ -1,15 +1,15 @@
 class Queue:
     def __init__(self):
-        self.queue = []
+        self.__queue = []
     def push(self, elem):
-        self.queue.append(elem)
+        self.__queue.append(elem)
     def pop(self):
-        return self.queue.pop(0)
+        return self.__queue.pop(0)
     def peek(self):
-        st = self.queue.copy()
+        st = self.__queue.copy()
         return st.pop(0)
     def size(self):
-        return len(self.queue)
+        return len(self.__queue)
     def is_empty(self):
         return self.size() == 0
 
